@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <div class="card text-center mt-3">
+        <div class="card-header bg-info text-light">
+            Welcome to Grenoble Library
+        </div>
+        <div class="card-body ">
+            <h5 class="card-title">Here you can borrow books and access to the knowledge</h5>
+            <p class="card-text">
+                Grenoble Library is located at Grenoble 38000, 13 Boulevard Edouard Vaillant
+                <br>
+                Open everyday at 8:00am to 10:00pm
+            </p>
+            <a href="#" class="btn btn-info text-light">Find your books !</a>
+        </div>
+    </div>
+
+    <h4 class="text-center text-light rounded mt-2 bg-info pt-1 pb-1">Our recommendations</h4>
+    <div class="card-group card justify-content-between mt-4">
+        <div class="col-5">
+            <h3 class="text-center text-info font-weight-bold">The glass hotel</h3>
+            <img class="img-fluid img-thumbnail rounded mt-1"
+                 src="https://www.blookup.com/static/images/single/blog-book.6053e699ab9b.jpg" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aperiam,
+                    cupiditate debitis dolorem dolores eius est eum, fugiat harum, impedit inventore itaque laboriosam
+                    maxime minima modi officiis quasi quis quo!</p>
+                <div class="justify-content-around row align-items-center">
+                    <a href="" class="btn btn-info text-light col-5">Set aside !</a>
+                    <span class="text-muted col-5">2,99$</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <h3 class="text-center text-info font-weight-bold mt-2">The mirror and the light</h3>
+            <img class="img-fluid img-thumbnail rounded mt-1"
+                 src="https://www.blookup.com/static/images/single/blog-book.6053e699ab9b.jpg" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi consectetur
+                    cum eligendi minima nisi non sit soluta voluptate voluptatibus. Aperiam debitis iste, laborum libero
+                    magni natus obcaecati porro voluptates.</p>
+                <div class="justify-content-around row align-items-center mt-2">
+                    <a href="" class="btn btn-info text-light col-5">Set aside !</a>
+                    <span class="text-muted col-5">1,99$</span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

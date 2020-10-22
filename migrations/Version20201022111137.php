@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20201021204643 extends AbstractMigration
+final class Version20201022111137 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,7 @@ final class Version20201021204643 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE author (id INT AUTO_INCREMENT NOT NULL, firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, birth_date DATETIME NOT NULL, death_date DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE author_document (author_id INT NOT NULL, document_id INT NOT NULL, INDEX IDX_37F9A0C3F675F31B (author_id), INDEX IDX_37F9A0C3C33F7837 (document_id), PRIMARY KEY(author_id, document_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE borrowing (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, borrowed_at DATETIME NOT NULL, expected_return_date DATETIME NOT NULL, actual_return_date DATETIME DEFAULT NULL, INDEX IDX_226E5897A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE borrowing (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, document_id INT NOT NULL, borrowed_at DATETIME NOT NULL, expected_return_date DATETIME NOT NULL, actual_return_date DATETIME DEFAULT NULL, INDEX IDX_226E5897A76ED395 (user_id), INDEX IDX_226E5897C33F7837 (document_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE category (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE cd (id INT NOT NULL, total_duration INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE document (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, published_at DATETIME NOT NULL, reference_number VARCHAR(255) NOT NULL, stock INT NOT NULL, publisher VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, illustration VARCHAR(255) NOT NULL, type VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -31,10 +31,11 @@ final class Version20201021204643 extends AbstractMigration
         $this->addSql('CREATE TABLE novel (id INT NOT NULL, pages INT NOT NULL, original_language VARCHAR(255) NOT NULL, isbn VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE penalty (id INT AUTO_INCREMENT NOT NULL, type ENUM(\'one_day\', \'seven_days\', \'fourteen_days\', \'blacklisted\'), amount DOUBLE PRECISION NOT NULL, date DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE plage (id INT AUTO_INCREMENT NOT NULL, cd_id INT NOT NULL, title VARCHAR(255) NOT NULL, duration INT NOT NULL, INDEX IDX_107196C935F486F6 (cd_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, penalty_id INT DEFAULT NULL, firstname VARCHAR(100) NOT NULL, lastname VARCHAR(200) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, role JSON NOT NULL, registered_at DATETIME NOT NULL, phone_number INT NOT NULL, created_at DATETIME NOT NULL, end_date DATETIME NOT NULL, status ENUM(\'free\', \'subscribed\'), UNIQUE INDEX UNIQ_8D93D64917C4A6C7 (penalty_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, penalty_id INT DEFAULT NULL, firstname VARCHAR(100) NOT NULL, lastname VARCHAR(200) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, role JSON NOT NULL, subscribed_at DATETIME DEFAULT NULL, phone_number VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL, subscription_end_date DATETIME DEFAULT NULL, status ENUM(\'free\', \'subscribed\'), UNIQUE INDEX UNIQ_8D93D64917C4A6C7 (penalty_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE author_document ADD CONSTRAINT FK_37F9A0C3F675F31B FOREIGN KEY (author_id) REFERENCES author (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE author_document ADD CONSTRAINT FK_37F9A0C3C33F7837 FOREIGN KEY (document_id) REFERENCES document (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE borrowing ADD CONSTRAINT FK_226E5897A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
+        $this->addSql('ALTER TABLE borrowing ADD CONSTRAINT FK_226E5897C33F7837 FOREIGN KEY (document_id) REFERENCES document (id)');
         $this->addSql('ALTER TABLE cd ADD CONSTRAINT FK_45D68FDABF396750 FOREIGN KEY (id) REFERENCES document (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE document_category ADD CONSTRAINT FK_898DE898C33F7837 FOREIGN KEY (document_id) REFERENCES document (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE document_category ADD CONSTRAINT FK_898DE89812469DE2 FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE');
@@ -51,6 +52,7 @@ final class Version20201021204643 extends AbstractMigration
         $this->addSql('ALTER TABLE document_category DROP FOREIGN KEY FK_898DE89812469DE2');
         $this->addSql('ALTER TABLE plage DROP FOREIGN KEY FK_107196C935F486F6');
         $this->addSql('ALTER TABLE author_document DROP FOREIGN KEY FK_37F9A0C3C33F7837');
+        $this->addSql('ALTER TABLE borrowing DROP FOREIGN KEY FK_226E5897C33F7837');
         $this->addSql('ALTER TABLE cd DROP FOREIGN KEY FK_45D68FDABF396750');
         $this->addSql('ALTER TABLE document_category DROP FOREIGN KEY FK_898DE898C33F7837');
         $this->addSql('ALTER TABLE dvd DROP FOREIGN KEY FK_8325C1DFBF396750');

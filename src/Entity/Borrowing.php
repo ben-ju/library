@@ -38,6 +38,12 @@ class Borrowing
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Document::class, inversedBy="borrowings")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $document;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +93,18 @@ class Borrowing
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDocument(): ?Document
+    {
+        return $this->document;
+    }
+
+    public function setDocument(?Document $document): self
+    {
+        $this->document = $document;
 
         return $this;
     }

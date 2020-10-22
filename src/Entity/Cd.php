@@ -24,6 +24,7 @@ class Cd extends Document
 
     public function __construct()
     {
+        parent::__construct();
         $this->plages = new ArrayCollection();
     }
 

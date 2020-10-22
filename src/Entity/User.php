@@ -48,12 +48,12 @@ class User implements UserInterface
     private $role = ['ROLE_USER'];
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $registered_at;
+    private $subscribed_at;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $phone_number;
 
@@ -63,12 +63,12 @@ class User implements UserInterface
     private $created_at;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime",nullable=true)
      */
-    private $end_date;
+    private $subscription_end_date;
 
     /**
-     * @ORM\Column(type="string", columnDefinition="ENUM('free', 'subscribed')", length=255)
+     * @ORM\Column(type="string", columnDefinition="ENUM('free', 'subscribed')", length=255, nullable=false)
      */
     private $status;
 
@@ -172,24 +172,24 @@ class User implements UserInterface
         // TODO: Implement eraseCredentials() method.
     }
 
-    public function getRegisteredAt(): ?\DateTimeInterface
+    public function getSubscribedAt(): ?\DateTimeInterface
     {
-        return $this->registered_at;
+        return $this->subscribed_at;
     }
 
-    public function setRegisteredAt(\DateTimeInterface $registered_at): self
+    public function setSubscribedAt(\DateTimeInterface $subscribed_at): self
     {
-        $this->registered_at = $registered_at;
+        $this->subscribed_at = $subscribed_at;
 
         return $this;
     }
 
-    public function getPhoneNumber(): ?int
+    public function getPhoneNumber(): ?string
     {
         return $this->phone_number;
     }
 
-    public function setPhoneNumber(int $phone_number): self
+    public function setPhoneNumber(string $phone_number): self
     {
         $this->phone_number = $phone_number;
 
@@ -208,14 +208,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getEndDate(): ?\DateTimeInterface
+    public function getSubscriptionEndDate(): ?\DateTimeInterface
     {
-        return $this->end_date;
+        return $this->subscription_end_date;
     }
 
-    public function setEndDate(\DateTimeInterface $end_date): self
+    public function setSubscriptionEndDate(\DateTimeInterface $subscription_end_date): self
     {
-        $this->end_date = $end_date;
+        $this->subscription_end_date = $subscription_end_date;
 
         return $this;
     }

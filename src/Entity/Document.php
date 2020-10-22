@@ -71,11 +71,17 @@ abstract class Document
      */
     private $authors;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="document")
+     */
+    private $borrowings;
+
 
     public function __construct()
     {
         $this->authors = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->borrowings = new ArrayCollection();
     }
 
     private function getId(): ?int
@@ -216,6 +222,37 @@ abstract class Document
         if ($this->authors->contains($author)) {
             $this->authors->removeElement($author);
             $author->removeDocument($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Borrowing[]
+     */
+    public function getBorrowings(): Collection
+    {
+        return $this->borrowings;
+    }
+
+    public function addBorrowing(Borrowing $borrowing): self
+    {
+        if (!$this->borrowings->contains($borrowing)) {
+            $this->borrowings[] = $borrowing;
+            $borrowing->setDocument($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBorrowing(Borrowing $borrowing): self
+    {
+        if ($this->borrowings->contains($borrowing)) {
+            $this->borrowings->removeElement($borrowing);
+            // set the owning side to null (unless already changed)
+            if ($borrowing->getDocument() === $this) {
+                $borrowing->setDocument(null);
+            }
         }
 
         return $this;

@@ -1,0 +1,63 @@
+{% set hours = document.duration / 3600 % 60 %}
+{% set minutes = document.duration / 60 % 60 %}
+
+{% if minutes < 10 %}
+    {% set minutes = 0 ~ minutes %}
+{% endif %}
+
+<div class="card promoting-card col-5 m-3">
+    <div>
+        <div class="pt-4 pb-4 text-nowrap">
+            <h5 class="card-title font-weight-bold mb-2 pt-2 text-center">{{ document.title }}</h5>
+        </div>
+    </div>
+    <div class="view overlay">
+        <a href="">
+            <img class="card-img-top rounded-0 img-thumbnail"
+                 src="https://wp-fr.oberlo.com/wp-content/uploads/sites/4/2019/09/barn-image.jpg"
+                 alt="Card image cap">
+            <a href="#">
+                <div class="mask rgba-white-slight"></div>
+            </a>
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="collapse-content">
+            <p class="card-text align-items-center"
+               id="collapseContent">{{ document.description |slice(0,90) }}...</p>
+            <h5 class="card-title font-weight-bold text-success mb-2 p-0 pb-2">{{ document.referenceNumber }}</h5>
+            <div class="row">
+                <div class="col-md-6 btn-group">
+                    <a class="btn btn-info text-light" aria-expanded="false"
+                       href="{{ path('full_document', {'id': document.id}) }}">View</a>
+                    <a class="btn btn-success text-light" aria-expanded="false">Add</a>
+                </div>
+            </div>
+            <div class="justify-content-around align-items-center row col-12 mt-3">
+                <span class="text-info col-12">{{ category }}</span>
+                <span class="text-black-50 col-8">Written by {{ author }}</span>
+                <span class="text-secondary col-4 text-right">[{{ hours ~ "h" ~ minutes }}]</span>
+
+
+                <span class="text-info col-8">Published by {{ document.publisher }}</span>
+                <span class="text-muted col-4 text-right">
+                        {% if document.hasBonus == false %}
+                            No bonus
+                        {% else %}
+                            With bonus
+                        {% endif %}
+                    </span>
+                {% if document.stock ==  0 %}
+                    <span class="text-info col-12">This book is not available at the moment</span>
+                {% else %}
+                    <span class="text-muted col-12">{{ document.stock }} copies in stock</span>
+                {% endif %}
+                <span class="text-muted col-6">{{ document.publishedAt|date('Y-m-d') }}</span>
+                <div class="col-6">
+                    <img src="https://img.icons8.com/officel/80/000000/dvd-logo.png" width="60" height="auto"/>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

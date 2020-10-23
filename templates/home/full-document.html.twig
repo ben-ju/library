@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% for category in document.categories %}
+        {% for author in document.authors %}
+            {% if 'Novel' in get_class(document) %}
+                {% include 'home/full/__full-novel.html.twig' %}
+            {% elseif 'Cd' in get_class(document) %}
+                {% include 'home/full/__full-cd.html.twig' %}
+            {% elseif 'Dvd' in get_class(document) %}
+                {% include 'home/full/__full-dvd.html.twig' %}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

@@ -84,7 +84,7 @@ abstract class Document
         $this->borrowings = new ArrayCollection();
     }
 
-    private function getId(): ?int
+    protected function getId(): ?int
     {
         return $this->id;
     }

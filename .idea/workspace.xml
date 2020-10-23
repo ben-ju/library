@@ -2,7 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7761817-6d9f-4d2d-bce2-03ff75644234" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/117b2dc9-ff92-403f-9295-ca1b2f2777c5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/117b2dc9-ff92-403f-9295-ca1b2f2777c5.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20201022111137.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Author.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Author.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Cd.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Cd.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Document.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Document.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Dvd.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Dvd.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Novel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Novel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/DocumentRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/DocumentRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/NovelRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/NovelRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home/__full-book.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home/shopping.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/shopping.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +198,10 @@
       <workItem from="1603099310292" duration="13771000" />
       <workItem from="1603119857110" duration="307000" />
       <workItem from="1603266198533" duration="21126000" />
-      <workItem from="1603352525209" duration="14347000" />
+      <workItem from="1603352525209" duration="22672000" />
+      <workItem from="1603398044557" duration="4066000" />
+      <workItem from="1603438177354" duration="3730000" />
+      <workItem from="1603442508599" duration="14803000" />
     </task>
     <servers />
   </component>
@@ -193,10 +213,11 @@
       <screen x="0" y="178" width="1366" height="768" />
     </state>
     <state x="555" y="190" width="800" height="684" key="#com.intellij.execution.impl.EditConfigurationsDialog/1366.0.1920.1080/0.178.1366.768@0.178.1366.768" timestamp="1603099414949" />
-    <state x="745" y="200" width="419" height="664" key="#com.intellij.ide.util.MemberChooser" timestamp="1603117363551">
-      <screen x="0" y="178" width="1366" height="768" />
+    <state x="2413" y="31" width="419" height="664" key="#com.intellij.ide.util.MemberChooser" timestamp="1603441772651">
+      <screen x="1366" y="0" width="1920" height="1080" />
     </state>
     <state x="745" y="200" width="419" height="664" key="#com.intellij.ide.util.MemberChooser/1366.0.1920.1080/0.178.1366.768@0.178.1366.768" timestamp="1603117363551" />
+    <state x="2413" y="31" width="419" height="664" key="#com.intellij.ide.util.MemberChooser/1366.0.1920.1080/0.178.1366.768@1366.0.1920.1080" timestamp="1603441772651" />
     <state x="680" y="405" width="550" height="287" key="ComposerInitDialogKey" timestamp="1603099868484">
       <screen x="0" y="178" width="1366" height="768" />
     </state>
@@ -205,26 +226,30 @@
       <screen x="0" y="178" width="1366" height="768" />
     </state>
     <state x="743" y="286" width="424" height="491" key="FileChooserDialogImpl/1366.0.1920.1080/0.178.1366.768@0.178.1366.768" timestamp="1603307460928" />
-    <state width="1291" height="249" key="GridCell.Tab.0.bottom" timestamp="1603369222826">
+    <state width="1291" height="249" key="GridCell.Tab.0.bottom" timestamp="1603443097360">
       <screen x="1366" y="0" width="1920" height="1080" />
     </state>
     <state width="1291" height="249" key="GridCell.Tab.0.bottom/1366.0.1920.1080/0.178.1366.768@0.178.1366.768" timestamp="1603313164899" />
-    <state width="1291" height="249" key="GridCell.Tab.0.bottom/1366.0.1920.1080/0.178.1366.768@1366.0.1920.1080" timestamp="1603369222826" />
-    <state width="1291" height="249" key="GridCell.Tab.0.center" timestamp="1603369222826">
+    <state width="1291" height="249" key="GridCell.Tab.0.bottom/1366.0.1920.1080/0.178.1366.768@1366.0.1920.1080" timestamp="1603443097360" />
+    <state width="1291" height="249" key="GridCell.Tab.0.center" timestamp="1603443097360">
       <screen x="1366" y="0" width="1920" height="1080" />
     </state>
     <state width="1291" height="249" key="GridCell.Tab.0.center/1366.0.1920.1080/0.178.1366.768@0.178.1366.768" timestamp="1603313164899" />
-    <state width="1291" height="249" key="GridCell.Tab.0.center/1366.0.1920.1080/0.178.1366.768@1366.0.1920.1080" timestamp="1603369222826" />
-    <state width="1291" height="249" key="GridCell.Tab.0.left" timestamp="1603369222826">
+    <state width="1291" height="249" key="GridCell.Tab.0.center/1366.0.1920.1080/0.178.1366.768@1366.0.1920.1080" timestamp="1603443097360" />
+    <state width="1291" height="249" key="GridCell.Tab.0.left" timestamp="1603443097359">
       <screen x="1366" y="0" width="1920" height="1080" />
     </state>
     <state width="1291" height="249" key="GridCell.Tab.0.left/1366.0.1920.1080/0.178.1366.768@0.178.1366.768" timestamp="1603313164899" />
-    <state width="1291" height="249" key="GridCell.Tab.0.left/1366.0.1920.1080/0.178.1366.768@1366.0.1920.1080" timestamp="1603369222826" />
-    <state width="1291" height="249" key="GridCell.Tab.0.right" timestamp="1603369222826">
+    <state width="1291" height="249" key="GridCell.Tab.0.left/1366.0.1920.1080/0.178.1366.768@1366.0.1920.1080" timestamp="1603443097359" />
+    <state width="1291" height="249" key="GridCell.Tab.0.right" timestamp="1603443097360">
       <screen x="1366" y="0" width="1920" height="1080" />
     </state>
     <state width="1291" height="249" key="GridCell.Tab.0.right/1366.0.1920.1080/0.178.1366.768@0.178.1366.768" timestamp="1603313164899" />
-    <state width="1291" height="249" key="GridCell.Tab.0.right/1366.0.1920.1080/0.178.1366.768@1366.0.1920.1080" timestamp="1603369222826" />
+    <state width="1291" height="249" key="GridCell.Tab.0.right/1366.0.1920.1080/0.178.1366.768@1366.0.1920.1080" timestamp="1603443097360" />
+    <state x="2073" y="232" width="543" height="600" key="NewPhpClassDialog" timestamp="1603456407969">
+      <screen x="1366" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2073" y="232" width="543" height="600" key="NewPhpClassDialog/1366.0.1920.1080/0.178.1366.768@1366.0.1920.1080" timestamp="1603456407969" />
     <state x="2187" y="398" width="362" height="290" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1603267118128">
       <screen x="1366" y="0" width="1920" height="1080" />
     </state>

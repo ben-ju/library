@@ -2,6 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Document;
+use App\Entity\Novel;
+use App\Repository\DocumentRepository;
+use App\Repository\NovelRepository;
+use Doctrine\ORM\EntityManager;
 use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,33 +24,53 @@ class HomeController extends AbstractController
         return $this->render('home/homepage.twig');
     }
 
-//
-//    /**
-//     * @Route("/books", name="shopping")
-//     * @Route("/books/{id}", name="full_book")
-//     * @param PaginatorInterface $paginator
-//     * @param Request $request
-//     * @return Response
-//     */
-//    public function booksPage PaginatorInterface $paginator, Request $request)
-//    {
-//        if ($book !== null) {
-//            return $this->render('home/__full-book.html.twig', [
-//                'book' => $book
-//            ]);
-//        }
-//        $pagination = $paginator->paginate(
-//            $repository->getBooksAndStocks(),
-//            $request->request->getInt('page', 1),
-//            20
-//        );
-//        $pagination->setCustomParameters([
-//            'align' => 'center',
-//        ]);
-//
-//        return $this->render('home/shopping.html.twig', [
-//            'pagination' => $pagination,
-//            'full_book' => $book
-//        ]);
-//    }
+
+    /**
+     * @Route("/document", name="shopping")
+     * @Route("/document/{id}", name="full_document")
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @param DocumentRepository $repository
+     * @param Document|null $id
+     * @return Response
+     */
+    public function documentPage(PaginatorInterface $paginator,
+                                 Request $request,
+                                 DocumentRepository $repository,
+                                 Document $id = null): Response
+    {
+        if ($id !== null) {
+            return $this->render('home/full-document.html.twig', [
+                'document' => $id
+            ]);
+        }
+        $bool = false;
+        if (($search = $request->query->get('q')) !== null) {
+            $query = $repository->searchByTitle($search);
+            $bool = true;
+        } else {
+            $query = $repository->findAll();
+        }
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            20
+        );
+
+        $pagination->setCustomParameters([
+            'align' => 'center',
+        ]);
+
+        return $this->render('home/shopping.html.twig', [
+            'pagination' => $pagination,
+            'search' => $search,
+            'query' => $bool
+        ]);
+    }
+
+// Filter with the header form documents by category
+    public function getDocumentsByCategories()
+    {
+
+    }
 }

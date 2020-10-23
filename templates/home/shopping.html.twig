@@ -1,61 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Our books !{% endblock %}
+{% block title %}Our documents !{% endblock %}
 
 {% block body %}
-        {% if pagination.getTotalItemCount == 0 %}
-
-            <div class="count bg-info text-light rounded text-center pt-1 pb-1 mb-3">
+    {% if pagination.getTotalItemCount == 0 %}
+        <div class="count bg-info text-light rounded text-center pt-1 pb-1 mb-3">
+            {% if query == true %}
+                We didn't find any document containing "<b>{{ search }}</b>" in the title
+            {% else %}
                 The library is temporaly closed !
-            </div>
-        {% else %}
-            <div class="count bg-info text-light rounded text-center pt-1 pb-1 mb-3">
-                We currently have <b>{{ pagination.getTotalItemCount }}</b> books in our library !
-            </div>
-            <div class="row d-flex justify-content-center">
-                {% for book in pagination %}
-                    <div class="card promoting-card col-5 m-3">
-                        <div class="card-body d-flex flex-row">
-                            <div>
-                                <h4 class="card-title font-weight-bold mb-2">{{ book.name }}</h4>
-                            </div>
-                        </div>
-                        <div class="view overlay">
-                            <a href="">
-                                <img class="card-img-top rounded-0 img-thumbnail"
-                                     src="{{ book.image }}"
-                                     alt="Card image cap">
-                                <a href="#">
-                                    <div class="mask rgba-white-slight"></div>
-                                </a>
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <div class="collapse-content">
-                                <p class="card-text align-items-center"
-                                   id="collapseContent">{{ book.presentation |slice(0,90) }}...</p>
-                                <h3 class="card-title font-weight-bold text-success mb-2 p-0">{{ book.price }} $</h3>
-
-                                <div class="row">
-                                    <div class="col-md-6 btn-group">
-                                        <a class="btn btn-info text-light" aria-expanded="false"
-                                           href="{{ path('full_book', {'id': book.id}) }}">View</a>
-                                        <a class="btn btn-success text-light" aria-expanded="false">Add</a>
-                                    </div>
-                                </div>
-                                <div class="justify-content-around align-items-center col-12 mt-3">
-                                    <span class="text-info col-5">{{ book.category_name }}</span>
-                                    {% if book.stock ==  0 %}
-                                        <span class="text-info col-5">This book is not available at the moment</span>
-                                    {% else %}
-                                        <span class="text-muted col-5">{{ book.stock }} copies in stock</span>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="count bg-info text-light rounded text-center pt-1 pb-1 mb-3">
+            We currently have <b>{{ pagination.getTotalItemCount }}</b> documents in our library
+            {% if query == true %}
+                with a title containing "<b>{{ search }}</b>"
+            {% endif %}
+            !
+        </div>
+        <div class="row d-flex justify-content-center">
+            {% for document in pagination %}
+                {% for category in document.categories %}
+                    {% for author in document.authors %}
+                        {% if 'Novel' in get_class(document) %}
+                            {% include 'home/__novel.html.twig' %}
+                        {% elseif 'Cd' in get_class(document) %}
+                            {% include 'home/__cd.html.twig' %}
+                        {% elseif 'Dvd' in get_class(document) %}
+                            {% include 'home/__dvd.html.twig' %}
+                        {% endif %}
+                    {% endfor %}
                 {% endfor %}
-            </div>
+            {% endfor %}
+        </div>
         {{ knp_pagination_render(pagination) }}
     {% endif %}
 {% endblock %}

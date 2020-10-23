@@ -19,32 +19,22 @@ class NovelRepository extends ServiceEntityRepository
         parent::__construct($registry, Novel::class);
     }
 
-    // /**
-    //  * @return Novel[] Returns an array of Novel objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getAverageBookPages()
     {
-        return $this->createQueryBuilder('n')
-            ->andWhere('n.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('n.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $qb = $this->createQueryBuilder('n');
+                return $qb->select($qb->expr()->avg('n.pages'))
+                    ->getQuery()->getResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Novel
+    public function booksBiggerThanAverage()
     {
-        return $this->createQueryBuilder('n')
-            ->andWhere('n.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $qb = $this->createQueryBuilder('n');
+        $avg = $qb->select($qb->expr()->avg('n.pages'))
+            ->getDQL();
+
+//        $qb = $this->createQueryBuilder('n')
+//            ->
     }
-    */
+
+
 }

@@ -20,6 +20,11 @@ class Dvd extends Document
      */
     private $has_bonus;
 
+    public function getId(): ?int
+    {
+        return parent::getId();
+    }
+
     public function getDuration(): ?int
     {
         return $this->duration;

@@ -46,15 +46,18 @@
                 {% endif %}
             </ul>
         </div>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search for a book" aria-label="Search">
+
+        <form class="form-inline" method="get" action="{{ path('shopping') }}" name="search">
+            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search for a book" aria-label="Search">
             <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
         </form>
     </nav>
 </header>
-<main class="container min-vh-100">
+<main>
+    <div class="container min-vh-100">
     {% block body %}
     {% endblock %}
+    </div>
 </main>
 <footer class="page-footer font-small bg-light mt-5">
 

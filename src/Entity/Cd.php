@@ -28,6 +28,11 @@ class Cd extends Document
         $this->plages = new ArrayCollection();
     }
 
+    public function getId(): ?int
+    {
+        return parent::getId();
+    }
+
     public function getTotalDuration(): ?int
     {
         return $this->total_duration;

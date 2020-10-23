@@ -2,9 +2,15 @@
 
 namespace App\Repository;
 
+use App\Entity\Author;
 use App\Entity\Document;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception;
+use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Document|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,22 +25,36 @@ class DocumentRepository extends ServiceEntityRepository
         parent::__construct($registry, Document::class);
     }
 
-    // /**
-    //  * @return Document[] Returns an array of Document objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getDocumentsAndStocks($id)
     {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $qb = $this->createQueryBuilder('d');
+        $qb->select('d.reference_number')
+            ->where('d.id = :id')
+            ->setParameter('id', $id);
+
+        return $qb->getQuery()->getResult();
     }
-    */
+
+    public function searchByTitle($search)
+    {
+
+        $qb = $this->createQueryBuilder('d');
+            $qb->where($qb->expr()->like('d.title', ':search'))
+                ->orderBy('d.published_at', 'DESC')
+                ->setParameter('search', "%{$search}%");
+
+            return $qb->getQuery()->getResult();
+
+    }
+
+    public function searchByCategory()
+    {
+//        $qb = $this->createQueryBuilder('d');
+//
+//        $qb->where($qb->expr()->like('d.type', 'book'))
+//            ->join()
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Document

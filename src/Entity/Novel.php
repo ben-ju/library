@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Novel extends Document
 {
+
     /**
      * @ORM\Column(type="integer")
      */
@@ -35,6 +36,11 @@ class Novel extends Document
         $this->pages = $pages;
 
         return $this;
+    }
+
+    public function getId(): ?int
+    {
+        return parent::getId();
     }
 
     public function getOriginalLanguage(): ?string

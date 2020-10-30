@@ -14,67 +14,68 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorMap({
  *     "novel" = "Novel",
  *     "dvd" = "Dvd",
- *     "cd" = "Cd"
+ *     "cd" = "Cd",
+ *     "document" = "Document"
  *     })
  */
-abstract class Document
+class Document
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    protected $title;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $published_at;
+    protected $published_at;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $reference_number;
+    protected $reference_number;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $stock;
+    protected $stock;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $publisher;
+    protected $publisher;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $description;
+    protected $description;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $illustration;
+    protected $illustration;
 
     /**
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="documents")
      */
-    private $categories;
+    protected $categories;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Author", mappedBy="documents")
+     * @ORM\ManyToMany(targetEntity="Author", inversedBy="documents")
      */
-    private $authors;
+    protected $authors;
 
     /**
      * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="document")
      */
-    private $borrowings;
+    protected $borrowings;
 
 
     public function __construct()
@@ -84,7 +85,7 @@ abstract class Document
         $this->borrowings = new ArrayCollection();
     }
 
-    protected function getId(): ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -256,5 +257,10 @@ abstract class Document
         }
 
         return $this;
+    }
+
+    public function __toString() :string
+    {
+     return $this->getReferenceNumber();
     }
 }

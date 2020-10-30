@@ -23,7 +23,6 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Unique (message="This category already exists")
      */
     private $name;
 

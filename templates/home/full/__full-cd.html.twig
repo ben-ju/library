@@ -36,8 +36,16 @@
                 </div>
             </div>
             <div class="justify-content-around align-items-center row col-12 mt-3">
-                <span class="text-info col-12">{{ category }}</span>
-                <span class="text-black-50 col-8">Written by {{ author }}</span>
+                <span class="text-info col-12">
+                    {% for category in document.categories %}
+                        {{ category }}
+                    {% endfor %}
+                </span>
+                <span class="text-black-50 col-8">Written by
+                     {% for author in document.authors %}
+                         {{ author }}
+                     {% endfor %}
+                 </span>
                 <span class="text-secondary col-4 text-right">[{{ hours ~ "h" ~ minutes }}]</span>
 
                 <span class="text-info col-12">Published by {{ document.publisher }}</span>

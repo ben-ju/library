@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Subscription
+{% endblock %}
+{% block body %}
+    <div class="min-vh-100 align-items-center d-flex row">
+        <div class="pricing-header mx-auto text-center mt-5">
+            <h1 class="display-4">Pricing</h1>
+            <p class="lead">Cheapest subscription with the biggest library. For any questions you can contact our support or
+            come to 12 Boulevard Paul Eluard, Grenoble.</p>
+        </div>
+        <div class="container">
+            <div class="card-deck mb-3 text-center">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">Monthly</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">$10 <small class="text-muted">/ mo</small></h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Get access anytime, any day</li>
+                            <li>Maximum of 5 borrows</li>
+                            <li>Access to any document</li>
+                            <li>Help center access</li>
+                            <li>No access to the member room</li>
+                        </ul>
+                        <a href="{{ path('subscribe') }}" class="btn btn-lg btn-block btn-outline-primary">Subscribe</a>
+                    </div>
+                </div>
+                <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">Yearly</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">$90 <small class="text-muted">/ year</small></h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Get access anytime, any day</li>
+                            <li>Maximum of 5 borrows</li>
+                            <li>Access to any document</li>
+                            <li>Help center access</li>
+                            <li>Access to the member room</li>
+                        </ul>
+                        <a href="{{ path('subscribe') }}" class="btn btn-lg btn-block btn-outline-primary">Subscribe</a>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

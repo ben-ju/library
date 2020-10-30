@@ -26,6 +26,11 @@ class Novel extends Document
      */
     private $isbn;
 
+    public function getId(): ?int
+    {
+        return parent::getId();
+    }
+
     public function getPages(): ?int
     {
         return $this->pages;
@@ -36,11 +41,6 @@ class Novel extends Document
         $this->pages = $pages;
 
         return $this;
-    }
-
-    public function getId(): ?int
-    {
-        return parent::getId();
     }
 
     public function getOriginalLanguage(): ?string
@@ -65,6 +65,11 @@ class Novel extends Document
         $this->isbn = $isbn;
 
         return $this;
+    }
+
+    public function __toString() :string
+    {
+        return $this->getTitle();
     }
 
 }

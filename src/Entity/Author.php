@@ -17,30 +17,30 @@ class Author
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $firstname;
+    private ?string $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $lastname;
+    private ?string $lastname;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $birth_date;
+    private ?\DateTimeInterface $birth_date;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $death_date;
+    private ?\DateTimeInterface $death_date;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Document::class, inversedBy="authors")
+     * @ORM\ManyToMany(targetEntity=Document::class, mappedBy="authors")
      */
     private $documents;
 

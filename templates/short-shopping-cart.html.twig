@@ -1,0 +1,21 @@
+<div class="btn-group">
+    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+        <i class="fa fa-shopping-cart"></i>
+        <span class="btn-sm btn-danger">{{ shopping_cart.total }}</span>
+    </button>
+    <div class="dropdown-menu p-0">
+        {% for cart in shopping_cart.documents|slice(0,5) %}
+            <div>
+                <a class="dropdown-item" href="{{ path('full_document', {'id': cart.document.id}) }}">
+                    <p class="font-weight-bold text-center">{{ cart.document.title }}</p>
+                    <img class="img-thumbnail"
+                         src="https://wp-fr.oberlo.com/wp-content/uploads/sites/4/2019/09/barn-image.jpg"
+                         alt="img-thumbnail">
+                    <p class="text-info">Qt : {{ cart.quantity }}</p>
+                </a>
+            </div>
+        {% endfor %}
+        <a class="dropdown-item bg-info text-light text-center" href="{{ path('full_cart') }}">Full cart</a>
+    </div>
+</div>

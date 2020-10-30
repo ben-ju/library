@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    User profile
+{% endblock %}
+
+{% block body %}
+
+    <div class="container min-vh-100" style="margin-top: 100px;">
+        <div class="main-body">
+            <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
+                                     class="rounded-circle" width="150">
+                                <div class="mt-3">
+                                    <h4>{{ app.user }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Full Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ app.user.fullname }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ app.user.email }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Phone</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ app.user.phonenumber }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Registered_at</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ app.user.createdAt|date('Y-m-d') }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Status</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ app.user.status }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Subscription end</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ app.user.subscriptionEndDate|default('none')|date('Y-m-d') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="table table-info">
+            <thead>
+            <tr>
+                <th scope="col" colspan="4" class="text-center">Non returned borrows</th>
+            </tr>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Reference Number</th>
+                <th scope="col">Borrowed at</th>
+                <th scope="col">Expected return date</th>
+            </tr>
+
+            </thead>
+            <tbody>
+            {% if nonReturnedBorrows | length == 0 %}
+                <tr>
+                    <td colspan="4" class="text-center">You have no borrows pendings</td>
+                </tr>
+            {% else %}
+            {% for borrow in nonReturnedBorrows %}
+                <tr>
+                    <td>{{ borrow.document.title|slice(0, 30)}}</td>
+                    <td>{{ borrow.document.referenceNumber }}</td>
+                    <td>{{ borrow.borrowedAt|date('Y-m-d H:i:s') }}</td>
+                    <td>{{ borrow.expectedReturnDate|date('Y-m-d H:i:s') }}</td>
+                </tr>
+            {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

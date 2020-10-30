@@ -3,37 +3,35 @@
 {% block title %}Our documents !{% endblock %}
 
 {% block body %}
-    {% if pagination.getTotalItemCount == 0 %}
-        <div class="count bg-info text-light rounded text-center pt-1 pb-1 mb-3">
-            {% if query == true %}
-                We didn't find any document containing "<b>{{ search }}</b>" in the title
-            {% else %}
-                The library is temporaly closed !
-            {% endif %}
-        </div>
-    {% else %}
-        <div class="count bg-info text-light rounded text-center pt-1 pb-1 mb-3">
-            We currently have <b>{{ pagination.getTotalItemCount }}</b> documents in our library
-            {% if query == true %}
-                with a title containing "<b>{{ search }}</b>"
-            {% endif %}
-            !
-        </div>
-        <div class="row d-flex justify-content-center">
-            {% for document in pagination %}
-                {% for category in document.categories %}
-                    {% for author in document.authors %}
-                        {% if 'Novel' in get_class(document) %}
-                            {% include 'home/__novel.html.twig' %}
-                        {% elseif 'Cd' in get_class(document) %}
-                            {% include 'home/__cd.html.twig' %}
-                        {% elseif 'Dvd' in get_class(document) %}
-                            {% include 'home/__dvd.html.twig' %}
-                        {% endif %}
-                    {% endfor %}
+    <div class="container" style="padding-top: 100px;">
+        {% if pagination.getTotalItemCount == 0 %}
+            <div class="count bg-info text-light rounded text-center pt-1 pb-1 mb-3">
+                {% if query == true %}
+                    We didn't find any document containing "<b>{{ search }}</b>" in the title
+                {% else %}
+                    The library is temporaly closed !
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="count bg-info text-light rounded text-center pt-1 pb-1 mb-3">
+                We currently have <b>{{ pagination.getTotalItemCount }}</b> documents in our library
+                {% if query == true %}
+                    with a title containing "<b>{{ search }}</b>"
+                {% endif %}
+                !
+            </div>
+            <div class="row d-flex justify-content-center">
+                {% for document in pagination %}
+                    {% if 'Novel' in get_class(document) %}
+                        {% include 'home/__novel.html.twig' %}
+                    {% elseif 'Cd' in get_class(document) %}
+                        {% include 'home/__cd.html.twig' %}
+                    {% elseif 'Dvd' in get_class(document) %}
+                        {% include 'home/__dvd.html.twig' %}
+                    {% endif %}
                 {% endfor %}
-            {% endfor %}
-        </div>
-        {{ knp_pagination_render(pagination) }}
-    {% endif %}
+            </div>
+            {{ knp_pagination_render(pagination) }}
+        {% endif %}
+    </div>
 {% endblock %}

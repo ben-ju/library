@@ -9,7 +9,7 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top position-absolute">
         <a class="navbar-brand text-info font-weight-bold" href="{{ path('home') }}">
             <img src="https://img.icons8.com/dusk/64/000000/book-shelf.png"/>
             Grenoble Library
@@ -21,10 +21,10 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link text-info" href="{{ path('shopping') }}">Our books <span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-info" href="{{ path('shopping') }}">Our documents <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-info" href="#">Pricing</a>
+                    <a class="nav-link text-info" href="{{ path('pricing') }}">Pricing</a>
                 </li>
                 {% if app.user is null %}
                     <li class="nav-item dropdown">
@@ -46,27 +46,38 @@
                 {% endif %}
             </ul>
         </div>
-
+        {% if app.user is not null %}
+            <a href="{{ path('profile') }}">
+                <i class="fa fa-user-graduate text-info mr-3" style="font-size: 30px;"></i>
+            </a>
+        {% endif %}
+            {{ render(controller('App\\Controller\\ShoppingCartController::shortShoppingCart')) }}
         <form class="form-inline" method="get" action="{{ path('shopping') }}" name="search">
-            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search for a book" aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search for a book"
+                   aria-label="Search">
             <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
         </form>
+
     </nav>
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger text-center" role="alert" style="margin-top: 90px;">
+            <strong>Oh snap!</strong> {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success text-center" role="alert" style="margin-top: 90px;">
+            <strong>Well done !</strong> {{ message }}
+        </div>
+    {% endfor %}
 </header>
 <main>
-    <div class="container min-vh-100">
     {% block body %}
     {% endblock %}
-    </div>
 </main>
 <footer class="page-footer font-small bg-light mt-5">
-
-    <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© 2020 Copyright:
         <a href="https://github.com/ben-ju"> github/ben-ju</a>
     </div>
-    <!-- Copyright -->
-
 </footer>
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}

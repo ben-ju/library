@@ -4,12 +4,11 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
+use App\Services\SessionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -36,9 +35,11 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/logout", name="logout")
+     * @param SessionService $sessionService
      */
-    public function logout(): void
+    public function logout(SessionService $sessionService): void
     {
+        $sessionService->clearSession();
     }
 
 
@@ -46,10 +47,9 @@ class SecurityController extends AbstractController
      * @Route("/register", name="registration")
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
-     * @param SessionInterface $session
      * @return Response
      */
-    public function registration(Request $request, UserPasswordEncoderInterface $encoder, SessionInterface $session): Response
+    public function registration(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
@@ -61,8 +61,6 @@ class SecurityController extends AbstractController
             $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
             $manager->persist($user);
             $manager->flush();
-            $session->setName('hi');
-            dd($session);
             return $this->redirectToRoute('home');
         }
 

@@ -28,11 +28,6 @@ class Cd extends Document
         $this->plages = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return parent::getId();
-    }
-
     public function getTotalDuration(): ?int
     {
         return $this->total_duration;
@@ -43,6 +38,11 @@ class Cd extends Document
         $this->total_duration = $total_duration;
 
         return $this;
+    }
+
+    public function getId(): ?int
+    {
+        return parent::getId();
     }
 
     /**
@@ -75,5 +75,11 @@ class Cd extends Document
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->title;
+    }
+
 
 }

@@ -36,15 +36,14 @@ class CdRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Cd
+    public function getDocuments()
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $sql = 'SELECT * FROM document';
+
+        $query = $this->createQueryBuilder('c');
+        $query->select('SUM(c.total_duration) total')
+            ->join('cd.plage', 'plage');
+
+        return $query->getQuery()->getResult();
     }
-    */
 }

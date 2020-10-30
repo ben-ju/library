@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Author;
+use App\Entity\Borrowing;
 use App\Entity\Category;
 use App\Entity\Cd;
 use App\Entity\Dvd;
@@ -47,6 +48,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Penalty', 'fa fa-folder-open', Penalty::class);
         yield MenuItem::linkToCrud('Plage', 'fa fa-folder-open', Plage::class);
         yield MenuItem::linkToCrud('User', 'fa fa-folder-open', User::class);
+        yield MenuItem::linkToCrud('Borrowing', 'fa fa-folder-open', Borrowing::class);
     }
 
 }

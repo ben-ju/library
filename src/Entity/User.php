@@ -6,11 +6,17 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={
+ *       "email"
+ *     },
+ *     message="Already in use"
+ * )
  */
 class User implements UserInterface
 {
@@ -33,7 +39,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Unique(message="This email is already used. Please connect")
+     * @Assert\Email(message="This email is already used. Please connect")
      */
     private $email;
 
@@ -73,18 +79,21 @@ class User implements UserInterface
     private $status;
 
     /**
-     * @ORM\OneToOne(targetEntity=Penalty::class, inversedBy="user", cascade={"persist", "remove"})
-     */
-    private $penalty;
-
-    /**
      * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="user", orphanRemoval=true)
      */
     private $borrows;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Penalty::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $penalties;
+
     public function __construct()
     {
+        $this->created_at = new \DateTime();
+        $this->status = 'free';
         $this->borrows = new ArrayCollection();
+        $this->penalties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -162,14 +171,13 @@ class User implements UserInterface
     {
     }
 
-    public function getUsername() :?string
+    public function getUsername(): ?string
     {
         return $this->getEmail();
     }
 
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
     }
 
     public function getSubscribedAt(): ?\DateTimeInterface
@@ -232,18 +240,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPenalty(): ?Penalty
-    {
-        return $this->penalty;
-    }
-
-    public function setPenalty(?Penalty $penalty): self
-    {
-        $this->penalty = $penalty;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Borrowing[]
      */
@@ -269,6 +265,46 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($borrow->getUser() === $this) {
                 $borrow->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getEmail();
+    }
+
+    public function getFullName()
+    {
+        return $this->getLastname() . ' ' . $this->getFirstname();
+    }
+
+    /**
+     * @return Collection|Penalty[]
+     */
+    public function getPenalties(): Collection
+    {
+        return $this->penalties;
+    }
+
+    public function addPenalty(Penalty $penalty): self
+    {
+        if (!$this->penalties->contains($penalty)) {
+            $this->penalties[] = $penalty;
+            $penalty->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePenalty(Penalty $penalty): self
+    {
+        if ($this->penalties->removeElement($penalty)) {
+            // set the owning side to null (unless already changed)
+            if ($penalty->getUser() === $this) {
+                $penalty->setUser(null);
             }
         }
 

@@ -3,50 +3,32 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    <div class="card text-center mt-3">
-        <div class="card-header bg-info text-light">
-            Welcome to Grenoble Library
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+        <div class="col-md-2 p-lg-2 mx-auto mt-5 text-info">
+            <h1 class="display-4 font-weight-normal text-left" style="letter-spacing: 2px">Read</h1>
+            <h1 class="display-4 font-weight-normal text-right" style="letter-spacing: 2px">Learn</h1>
         </div>
-        <div class="card-body ">
-            <h5 class="card-title">Here you can borrow books and access to the knowledge</h5>
-            <p class="card-text">
-                Grenoble Library is located at Grenoble 38000, 13 Boulevard Edouard Vaillant
-                <br>
-                Open everyday at 8:00am to 10:00pm
-            </p>
-            <a href="#" class="btn btn-info text-light">Find your books !</a>
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+            <p class="lead font-weight-normal" style="letter-spacing: 2px;">Start browsing into the biggest library</p>
+            <a class="btn btn-outline-info" href="{{ path('shopping') }}" style="letter-spacing: 2px">Our documents</a>
         </div>
+    </div>
+    <h2 class="lead font-weight-normal text-center text-info pb-2" style="letter-spacing: 2px;">Recently viewed</h2>
+
+    <div style="content: ''; min-height: 20vh;">
+        {% if viewedDocuments is defined %}
+            <div class="d-flex flex-row row col-12 justify-content-center">
+                {% for document in viewedDocuments %}
+                    {% if 'Novel' in get_class(document.document) %}
+                        {% include 'home/viewed_thumbnails/__novel-thumbnails.html.twig' %}
+                    {% elseif 'Cd' in get_class(document.document) %}
+                        {% include 'home/viewed_thumbnails/__cd-thumbnails.html.twig' %}
+                    {% elseif 'Dvd' in get_class(document.document) %}
+                        {% include 'home/viewed_thumbnails/__dvd-thumbnails.html.twig' %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
 
-    <h4 class="text-center text-light rounded mt-2 bg-info pt-1 pb-1">Our recommendations</h4>
-    <div class="card-group card justify-content-between mt-4">
-        <div class="col-5">
-            <h3 class="text-center text-info font-weight-bold">The glass hotel</h3>
-            <img class="img-fluid img-thumbnail rounded mt-1"
-                 src="https://www.blookup.com/static/images/single/blog-book.6053e699ab9b.jpg" alt="Card image cap">
-            <div class="card-body">
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aperiam,
-                    cupiditate debitis dolorem dolores eius est eum, fugiat harum, impedit inventore itaque laboriosam
-                    maxime minima modi officiis quasi quis quo!</p>
-                <div class="justify-content-around row align-items-center">
-                    <a href="" class="btn btn-info text-light col-5">Set aside !</a>
-                    <span class="text-muted col-5">2,99$</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-5">
-            <h3 class="text-center text-info font-weight-bold mt-2">The mirror and the light</h3>
-            <img class="img-fluid img-thumbnail rounded mt-1"
-                 src="https://www.blookup.com/static/images/single/blog-book.6053e699ab9b.jpg" alt="Card image cap">
-            <div class="card-body">
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi consectetur
-                    cum eligendi minima nisi non sit soluta voluptate voluptatibus. Aperiam debitis iste, laborum libero
-                    magni natus obcaecati porro voluptates.</p>
-                <div class="justify-content-around row align-items-center mt-2">
-                    <a href="" class="btn btn-info text-light col-5">Set aside !</a>
-                    <span class="text-muted col-5">1,99$</span>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}

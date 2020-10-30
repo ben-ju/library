@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Novel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Internal\Hydration\ObjectHydrator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,23 +19,4 @@ class NovelRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Novel::class);
     }
-
-    public function getAverageBookPages()
-    {
-        $qb = $this->createQueryBuilder('n');
-                return $qb->select($qb->expr()->avg('n.pages'))
-                    ->getQuery()->getResult();
-    }
-
-    public function booksBiggerThanAverage()
-    {
-        $qb = $this->createQueryBuilder('n');
-        $avg = $qb->select($qb->expr()->avg('n.pages'))
-            ->getDQL();
-
-//        $qb = $this->createQueryBuilder('n')
-//            ->
-    }
-
-
 }

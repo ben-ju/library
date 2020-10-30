@@ -6,6 +6,7 @@ use App\Entity\Dvd;
 use Doctrine\DBAL\Types\BooleanType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -23,15 +24,17 @@ class DvdCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('reference_number'),
+            IdField::new('id')->hideOnForm(),
+            TextField::new('title'),
+            TextField::new('reference_number')->hideOnForm(),
             IntegerField::new('stock'),
             DateField::new('published_at'),
             TextField::new('publisher'),
             TextField::new('description'),
             TextField::new('illustration'),
-            IntegerField::new('duration'),
             BooleanField::new('has_bonus'),
+            IntegerField::new('duration'),
+            AssociationField::new('authors'),
         ];
     }
 

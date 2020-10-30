@@ -6,6 +6,7 @@ use App\Entity\Cd;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
@@ -22,13 +23,15 @@ class CdCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('reference_number'),
+            TextField::new('title'),
+            TextField::new('reference_number')->hideOnForm(),
             IntegerField::new('stock'),
-            DateField::new('published_at')->hideOnForm(),
+            DateField::new('published_at'),
             TextField::new('publisher'),
             TextField::new('description'),
             TextField::new('illustration'),
             IntegerField::new('total_duration')->hideOnForm(),
+            AssociationField::new('authors'),
         ];
     }
 

@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Shopping cart !
+{% endblock %}
+
+{% block body %}
+
+    <div class="min-vh-100 d-flex align-items-center justify-content-center" style="margin-top: 100px;">
+        <div class="card shopping-cart">
+            <div class="card-header bg-info text-light">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                Shipping cart
+                <a href="{{ path('shopping') }}" class="btn btn-outline-light btn-sm pull-right ml-2">Continue
+                    shopping</a>
+                <div class="clearfix"></div>
+                {% if cart_items.total > 5 %}
+                    <div class="alert alert-danger text-center mt-2" role="alert">
+                        <strong>Too much documents !</strong> {{ cart_items.total }} documents in your cart, max
+                        <b>5</b>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info text-center mt-2" role="alert">
+                        <strong>Good reading !</strong> {{ cart_items.total }} documents in your cart
+                    </div>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <!-- PRODUCT -->
+                {% for items in cart_items %}
+                    {% for item in items %}
+                        <div class="row">
+                            <div class="col-12 col-md-2 text-center">
+                                <img class="img-responsive"
+                                     src="https://wp-fr.oberlo.com/wp-content/uploads/sites/4/2019/09/barn-image.jpg"
+                                     alt="preview" width="120"
+                                     height="80">
+                            </div>
+                            <div class="col-12 text-md-center col-md-6">
+                                <h4 class="product-name"><strong>{{ item.document.title }}</strong></h4>
+                                <h6 class="ml-2">
+                                    <small>{{ item.document.description|slice(0, 50) }}</small>
+                                </h6>
+                            </div>
+                            <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
+                                <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
+                                    <h6><strong>{{ item.quantity }} <span class="text-muted">x</span></strong></h6>
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-4">
+                                    <div class="quantity">
+                                        <div class="btn-group">
+                                            <a href="{{ path('add_cart', {'id': item.document.id}) }}"
+                                               class="btn btn-info"><i
+                                                        class="fa fa-cart-plus"></i></a>
+                                            <a href="{{ path('delete_cart', {'id': item.document.id }) }}"
+                                               class="btn btn-danger"><i
+                                                        class="fa fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="card-footer">
+                <div class="coupon col-8 no-padding-left pull-left">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="text" class="form-control" placeholder="coupon code">
+                        </div>
+                        <div class="col-6">
+                            <input type="submit" class="btn btn-info" value="Use coupon">
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-right" style="margin: 10px">
+                    {% if cart_items.total > 5 %}
+                        <a href="" class="btn btn-success disabled pull-right">Checkout</a>
+                    {% else %}
+                        <a href="" class="btn btn-success pull-right">Checkout</a>
+                    {% endif %}
+                    <div class="pull-right" style="margin: 5px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

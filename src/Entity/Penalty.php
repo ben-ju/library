@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PenaltyRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=PenaltyRepository::class)
@@ -34,7 +35,8 @@ class Penalty
     private $date;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, mappedBy="penalty", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="penalties")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
@@ -87,12 +89,6 @@ class Penalty
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newPenalty = null === $user ? null : $this;
-        if ($user->getPenalty() !== $newPenalty) {
-            $user->setPenalty($newPenalty);
-        }
 
         return $this;
     }

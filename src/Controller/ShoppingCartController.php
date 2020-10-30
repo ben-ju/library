@@ -4,28 +4,74 @@
 namespace App\Controller;
 
 
-use App\Repository\NovelRepository;
+use App\Entity\Document;
+use App\Services\SessionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ShoppingCartController extends AbstractController
 {
-    /**
-     * @Route("/cart/{id}", name="cart")
-     * @param Request $request
-     */
-    public function addArticle(Request $request): void
+    private SessionService $sessionService;
+
+    public function __construct(SessionService $service)
     {
-        $session = $request->getSession();
+        $this->sessionService = $service;
+    }
 
-        $session->get('cart', []);
+    /**
+     * @Route("/cart/add/{id}", name="add_cart")
+     * @param Document $document
+     * @return RedirectResponse|void
+     */
+    public function addArticle(Document $document)
+    {
 
-        $session->set('cart', ['hello']);
+        if ($this->isGranted('document_enough_stock', $document)) {
+            if ($this->isGranted('user_borrows', $this->getUser())) {
+                $this->sessionService->addDocumentCart($document);
+                $this->addFlash('success', "{$document->getTitle()} has been successfully added to your cart !");
+            } else {
+                $this->addFlash('error', "You have too many borrows pending");
+            }
+        } else {
+            $this->addFlash('error', 'The document is not available');
+        }
 
-        dd($session->get('cart'));
+        return $this->redirectToRoute('full_cart');
+    }
 
 
+    /**
+     * @Route("/cart/delete/{id}", name="delete_cart")
+     * @param Document $document
+     * @return RedirectResponse|void
+     */
+    public function removeArticle(Document $document)
+    {
+
+        $this->sessionService->deleteDocumentCart($document);
+
+        $this->addFlash('success', "{$document->getTitle()} has been successfully removed from your cart !");
+        return $this->redirectToRoute('full_cart');
+    }
+
+    /**
+     * @Route("/cart", name="full_cart")
+     * @return Response
+     */
+    public function fullShoppingCart(): Response
+    {
+        return $this->render('shopping-cart.html.twig', [
+            'cart_items' => $this->sessionService->getFormattedShoppingCart()
+        ]);
+    }
+
+    public function shortShoppingCart(): Response
+    {
+        return $this->render('short-shopping-cart.html.twig', [
+            'shopping_cart' => $this->sessionService->getFormattedShoppingCart()
+        ]);
     }
 }

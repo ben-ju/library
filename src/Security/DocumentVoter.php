@@ -5,13 +5,26 @@ namespace App\Security;
 
 
 use App\Entity\Document;
+use App\Services\SessionService;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class DocumentVoter extends Voter
 {
 
+    private SessionService $sessionService;
+
+
     private const DOCUMENT_ENOUGH_STOCK = 'document_enough_stock';
+
+    /**
+     * DocumentVoter constructor.
+     * @param SessionService $sessionService
+     */
+    public function __construct(SessionService $sessionService)
+    {
+        $this->sessionService = $sessionService;
+    }
 
     /**
      * @param string $attribute
@@ -30,6 +43,7 @@ class DocumentVoter extends Voter
 
         return true;
     }
+
     /**
      * @param string $attribute
      * @param mixed $subject
@@ -52,6 +66,11 @@ class DocumentVoter extends Voter
 
     public function isStockAvailable(Document $subject): ?bool
     {
-        return $subject->getStock() > 0;
+        foreach ($this->sessionService->getShoppingCart() as $key => $quantity) {
+            if ($subject->getId() === $key) {
+                return !($subject->getStock() === $quantity);
+            }
+        }
+        return true;
     }
 }

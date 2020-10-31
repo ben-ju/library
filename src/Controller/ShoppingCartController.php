@@ -27,7 +27,9 @@ class ShoppingCartController extends AbstractController
      */
     public function addArticle(Document $document)
     {
-
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('login');
+        }
         if ($this->isGranted('document_enough_stock', $document)) {
             if ($this->isGranted('user_borrows', $this->getUser())) {
                 $this->sessionService->addDocumentCart($document);

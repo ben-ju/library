@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Manager\RegistrationManager;
 use App\Entity\User;
 use App\Form\RegistrationType;
 use App\Services\SessionService;
@@ -47,9 +48,12 @@ class SecurityController extends AbstractController
      * @Route("/register", name="registration")
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
+     * @param RegistrationManager $registrationManager
      * @return Response
      */
-    public function registration(Request $request, UserPasswordEncoderInterface $encoder): Response
+    public function registration(Request $request,
+                                 UserPasswordEncoderInterface $encoder,
+                                 RegistrationManager $registrationManager): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
@@ -61,6 +65,9 @@ class SecurityController extends AbstractController
             $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
             $manager->persist($user);
             $manager->flush();
+// TODO find a way to send mail with the template given in the event const
+            $registrationManager->sendRegistrationMail($user);
+
             return $this->redirectToRoute('home');
         }
 

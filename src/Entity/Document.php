@@ -53,7 +53,7 @@ class Document
     protected $publisher;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     protected $description;
 

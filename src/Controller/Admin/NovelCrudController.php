@@ -32,8 +32,8 @@ class NovelCrudController extends AbstractCrudController
             TextField::new('isbn'),
             DateField::new('published_at'),
             TextField::new('publisher'),
-            TextField::new('description'),
-            TextField::new('illustration'),
+            TextField::new('description')->hideOnIndex(),
+            TextField::new('illustration')->hideOnIndex(),
             AssociationField::new('authors'),
             AssociationField::new('categories'),
         ];

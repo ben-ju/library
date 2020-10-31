@@ -79,7 +79,7 @@
                     {% if cart_items.total > 5 %}
                         <a href="" class="btn btn-success disabled pull-right">Checkout</a>
                     {% else %}
-                        <a href="" class="btn btn-success pull-right">Checkout</a>
+                        <a href="{{ path('borrow') }}" class="btn btn-success pull-right">Checkout</a>
                     {% endif %}
                     <div class="pull-right" style="margin: 5px">
                     </div>

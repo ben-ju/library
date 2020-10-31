@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Events\Admin;
+namespace App\EventSubscriber\Admin;
 
 
 use App\Entity\Penalty;

@@ -1,11 +1,10 @@
 <?php
 
 
-namespace App\Events\Admin;
+namespace App\EventSubscriber\Admin;
 
 
 use App\Entity\Borrowing;
-use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityDeletedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

@@ -74,7 +74,11 @@
                                     <h6 class="mb-0">Subscription end</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    {{ app.user.subscriptionEndDate|default('none')|date('Y-m-d') }}
+                                    {% if app.user.status == 'free' %}
+                                        none
+                                    {% else %}
+                                    {{ app.user.subscriptionEndDate|date('Y-m-d') }}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

@@ -97,11 +97,20 @@ class HomeController extends AbstractController
 
     /**
      * @Route("/authors", name="authors")
+     * @param AuthorRepository $repository
      */
     public function author(AuthorRepository $repository)
     {
            $authors = $repository->findBy([], ['lastname' => 'ASC']);
 
            dd($authors);
+    }
+
+    /**
+     * @Route("/clear", name="clear")
+     */
+    public function clear()
+    {
+        $this->sessionService->clearSession();
     }
 }
